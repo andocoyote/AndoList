@@ -6,19 +6,18 @@ LIBS=\
 	"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib" 
 
 mybuild: ListDriver.obj List.obj
-	cl /Zi /o AndoList.exe ListDriver.obj List.obj /link \
-		LIBPATH:$(LIBS)
+	cl /Zi /o AndoList.exe ListDriver.obj List.obj
 
 List.obj: List.cpp
-	cl /c List.cpp -I $(INCS)
+	cl /c /EHsc List.cpp
 
 ListDriver.obj: ListDriver.cpp
-	cl /c ListDriver.cpp -I $(INCS)
+	cl /c /EHsc ListDriver.cpp
 
 all:mybuild
 
 clean:
-   del *.exe *.obj *.pdb
+   del *.exe *.obj *.pdb *.ilk
 
 #------------------------------------------------------------------
 # If creating multiple obj files:
