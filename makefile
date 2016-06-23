@@ -1,20 +1,25 @@
 #Best nmake tutorial: http://www.bogotobogo.com/cplusplus/make.php
+CC=cl
+EXECUTABLE=AndoList
+CFLAGS=/c /EHsc
+#LDFLAGS=/link /LIBPATH:$(LIBS)
+DBGLAGS=/Zi
+SOURCES=Listdriver.cpp List.cpp
+OBJECTS=$(SOURCES:.cpp=.obj)
+
 INCS=\
 
 # Specify the location to my SDK libs (e.g. DbgHelp.Lib)
 LIBS=\
 	"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib" 
 
-mybuild: ListDriver.obj List.obj
-	cl /Zi /o AndoList.exe ListDriver.obj List.obj
+all: $(OBJECTS) $(EXECUTABLE)
 
-List.obj: List.cpp
-	cl /c /EHsc List.cpp
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(DBGFLAGS) $(OBJECTS) /Fe: $@ $(LDFLAGS)
 
-ListDriver.obj: ListDriver.cpp
-	cl /c /EHsc ListDriver.cpp
-
-all:mybuild
+.cpp.obj:
+	$(CC) $(CFLAGS) $< /Fo: $@
 
 clean:
    del *.exe *.obj *.pdb *.ilk
